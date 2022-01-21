@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 const { model, Schema } = mongoose;
 
 const UserDetailSchema = new Schema({
-  name: { type: String, required: true },
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
   avatar: { type: String },

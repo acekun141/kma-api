@@ -13,7 +13,8 @@ const BorrowSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Book',
     required: true
-  }
+  },
+  recieve_date: { type: Date, required: false },
 });
 
 export default model('Borrow', BorrowSchema);

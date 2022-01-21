@@ -5,6 +5,13 @@ const changePassword = Joi.object({
   newPassword: Joi.string().required(),
 });
 
+const addInfo = Joi.object({
+  user_id: Joi.string().required(),
+  first_name: Joi.string().required(),
+  last_name: Joi.string().required()
+})
+
 export default {
-  changePassword
+  changePassword,
+  addInfo
 }

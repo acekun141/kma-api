@@ -6,6 +6,7 @@ const BookDetailSchema = new Schema({
   number: { type: Number, default: 0 },
   publishing_year: { type: Number },
   author: { type: String },
+  file: { type: String },
   book: {
     type: Schema.Types.ObjectId,
     ref: 'Book',

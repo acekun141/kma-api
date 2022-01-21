@@ -1,14 +1,15 @@
-import { UserInfo } from "../models/index.js";
+import { UserDetail, UserInfo } from "../models/index.js";
 import UserExisted from "../utils/exceptions/user-exist.exception.js";
 import bcrypt from "bcrypt";
 import HttpException from "../utils/exceptions/http.exception.js";
 import jwt from "jsonwebtoken";
 
-const signup = async (username, password) => {
+const signup = async (username, password, first_name, last_name, military=false) => {
   const user = await UserInfo.findOne({ username });
   if (user) throw new UserExisted(username);
   const hash_password = await bcrypt.hash(password, 10);
-  await UserInfo.create({ username, hash_password, role: "civil" });
+  const new_user = await UserInfo.create({ username, hash_password, role: military ? "military" : "civil" });
+  const detail = await UserDetail.create({ first_name, last_name, user: new_user._id });
   return true;
 };
 

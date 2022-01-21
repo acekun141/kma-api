@@ -1,6 +1,6 @@
 import { HttpException } from "../utils/exceptions/index.js";
 
-const validate = (schema) => {
+const validate = (schema, type="body") => {
   const options = {
     abortEarly: false,
     allowUnknown: true,
@@ -8,12 +8,13 @@ const validate = (schema) => {
   };
 
   return (req, res, next) => {
-    const { error, value } = schema.validate(req.body, options);
+    console.log(req.body, req.file)
+    const { error, value } = schema.validate(req[type], options);
     if (error) {
       const errorMessage = error.details.map(field => field.message).join(', ');
       return next(new HttpException(400, errorMessage));
     }
-    req.body = value;
+    req[type] = value;
     return next();
   }
 }
